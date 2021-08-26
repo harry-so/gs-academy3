@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
+    <script src="jquery.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <title>メモアプリ</title>
+</head>
+
+<body>
+    <h1 class="header">Daily Notes</h1>
+    <p class = "tagline">いつ作ったメモ? 思い出せない時、ありますよね。</p>
+    <p class = "tagline">メモを取った時間や天気、場所、色んな情報と一緒に記録し、あなたの生産性をサポートします。</p>
+
+    <div class="wrapper">
+        <div class="input_area">
+            <div class="memo-wrapper">
+                <input id="title" type="text" placeholder="タイトル" class="text-box">
+                <textarea id="content" cols="40" rows="10" placeholder="メモの内容" class="text-box"></textarea>
+            </div>
+            <ul class="btn_display">
+                <li><button id="save" class="btn">Save</button></li>
+                <li><button id="clear" class="btn">Clear</button></li>
+            </ul>
+        </div>
+        <div id="view">
+            <button id="allClear" class="btn">All Clear</button>
+        </div>
+    <!-- </div>
+    <div id="myMap" style='width:340px;height:200px;padding:5px 5px;'></div> -->
+
+    
+
+
+    <!-- <script
+        src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ApbwDDtnMyCzkGt4rePxhvZnqs90aue39NqL7hr1U-Tm799BjeudCoRG3AySl5Yb'
+        async defer></script> -->
+
+
+    <script>
+
+        i = 0;
+
+        createNewNote = (i) => {
+            let v = $("#title").val();
+            let ob = JSON.parse(localStorage.getItem(i));
+            d = ob.date;
+            t = ob.time;
+            console.log(d, t);
+            return '<div class="note husen' + i + '">'
+                + '<p class="value">' + v + '</p>' + '<p class="date_text">' + d + " " + t + '</p>'
+                + '</div>';
+        };
+
+
+        getDate = () => {
+            let time = new Date();
+            month = time.getMonth() + 1;
+            day = time.getDate();
+            hour = time.getHours();
+            minute = time.getMinutes();
+            d = [month, day, hour, minute]
+            return d;
+        }
+
+        // メモを保存した時のあらゆるデータを取ってくる
+        saveNote = (i) => {
+            let title = $("#title").val();
+            let content = $("#content").val();
+            getDate();
+            let ido = localStorage.getItem("ido");
+            let keido = localStorage.getItem("keido");
+            let data = {
+                "title": title,
+                "content": content,
+                "latitude": ido,
+                "longitude": keido,
+                "date": d[0] + '/' + d[1],
+                "time": d[2] + ':' + d[3]
+            }
+            console.log(data);
+            localStorage.setItem(i, JSON.stringify(data));
+            alert("保存しました");
+        }
+
+        clearNote = () => {
+            $("#title").val("");
+            $("#content").val("");
+
+        }
+
+        a = 0;
+
+        $("#save").on("click", function () {
+            if (!($("#title").val() == "") && !($("#content").val() == "")) {
+                a++;
+                saveNote(a);
+                addNote = createNewNote(a);
+                $("#view").append(addNote);
+                clearNote();
+
+            } else {
+                alert("タイトルと内容両方記載してください");
+            }
+
+        })
+
+        $("#clear").on('click', function () {
+            clearNote();
+        })
+
+        $("#allClear").on("click", function () {
+            localStorage.clear();
+            a = 0;
+            $("#view").remove();
+
+        })
+
+        onload = function () {
+            localStorage.clear();
+        };
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+.wrapper {
+    display:flex;
+    justify-content:flex-start;
+}
+.memo-wrapper {
+    display:flex;
+    flex-flow:column;
+}
+
+.wrapper {
+    margin : 10px 0 0 10px;
+}
+
+.header {
+    font-size : 36px;
+    font-weight : bold;
+    padding : 3px 3px;
+}
+
+.tagline {
+    font-size:18px;
+    font-weight:bold;
+    padding: 2px 2px;
+}
+
+.btn_display {
+    display :flex;
+    justify-content:flex-end;
+}
+
+.btn{
+    margin:5px 5px;
+}
+.text-box{
+    margin: 5px 5px;
+}
+
+.note {
+    background-color : lightblue;
+    border : solid 1px blue;
+    width: 360px;
+    height: 30px;
+    margin: 5px 5px;
+    cursor:pointer;
+}
+
+.note:hover{
+    background-color:rgb(112, 198, 226);
+    border:solid 1px yellow;
+}
+
+
+.value {
+    font-size: 12px;
+    font-weight: bold;
+    color:rgb(41, 40, 40);
+    text-align: left;
+    padding:3px 3px;
+}
+
+.date_text {
+    font-size:8px;
+    color : grey;
+    text-align:right;
+    padding:0 2px 0 0;
+}
